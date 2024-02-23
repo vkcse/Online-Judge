@@ -1,0 +1,23 @@
+/* Add this to your CSS file or use inline styles */
+.full-screen-container {
+    display: flex;
+    height: 100vh;
+  }
+  
+  .left-section {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 50%;
+  }
+  
+  .right-section {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 50%;
+  }
+  

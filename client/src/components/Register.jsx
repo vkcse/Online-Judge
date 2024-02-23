@@ -1,6 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Register() {
+  const navigate = useNavigate();
+
   const formStyle = {
     border: "1px solid #ced4da",
     padding: "25px",
@@ -23,33 +27,37 @@ function Register() {
     e.preventDefault();
 
     try {
-      // TODO: send data to the server and get a response back
-      const response = await fetch("https://localhost:5000/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await axios.post(
+        "http://localhost:5000/api/register",
+        formData
+      );
 
-      if (response.ok) {
-        const result = await response.json();
-        console.log("Registration Successful", result);
+      console.log("Server Response:", response.data);
+
+      if (response.data.message === "You have successfully registered!") {
+        console.log("Registration Successful", response.data);
+      
+        // Reset the form data
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          password: "",
+        });
+    
+        navigate("/problem");
       } else {
-        const errorData = await response.json();
-        console.error("Registraion Failed:", errorData.message);
-      }
+        console.error("Registration Failed:", response.data.message);
+      }      
     } catch (error) {
-      console.error("Error during regsitration:", error.message);
+      console.error("Error during registration:", error.message);
     }
-
-    console.log("Form Data Submitted:", formData);
   };
 
   return (
     <div className="container-fluid">
-      <nav class="navbar navbar-expand-lg navbar-light fixed-top">
-        <a class="navbar-brand" href="/">
+      <nav className="navbar navbar-expand-lg navbar-light fixed-top">
+        <a className="navbar-brand" href="/">
           Online Judge
         </a>
       </nav>
@@ -58,51 +66,54 @@ function Register() {
         className="container-fluid register-form"
         onSubmit={handleSubmit}
       >
-        <div class="form-outline mb-4">
-          <label class="form-label">First Name</label>
+        <div className="form-outline mb-4">
+          <label className="form-label">First Name</label>
           <input
             type="text"
-            class="form-control"
+            className="form-control"
             name="firstName"
             value={formData.firstName}
             onChange={handleChange}
           />
         </div>
 
-        <div class="form-outline mb-4">
-          <label class="form-label">Last Name</label>
+        <div className="form-outline mb-4">
+          <label className="form-label">Last Name</label>
           <input
             type="text"
-            class="form-control"
+            className="form-control"
             name="lastName"
             value={formData.lastName}
             onChange={handleChange}
           />
         </div>
 
-        <div class="form-outline mb-4">
-          <label class="form-label">Email address</label>
+        <div className="form-outline mb-4">
+          <label className="form-label">Email address</label>
           <input
             type="email"
-            class="form-control"
+            className="form-control"
             name="email"
             value={formData.email}
             onChange={handleChange}
           />
         </div>
 
-        <div class="form-outline mb-4">
+        <div className="form-outline mb-4">
           <label className="form-label">Password</label>
           <input
             type="password"
-            class="form-control"
+            className="form-control"
             name="password"
             value={formData.password}
             onChange={handleChange}
           />
         </div>
 
-        <button type="submit" class="btn btn-outline-secondary btn-block mb-4">
+        <button
+          type="submit"
+          className="btn btn-outline-secondary btn-block mb-4"
+        >
           Sign Up
         </button>
 
@@ -111,20 +122,20 @@ function Register() {
             Not a member? <a href="/signin">Sign In</a>
           </p>
           <p>or sign up with:</p>
-          <button type="button" class="btn btn-link btn-floating mx-1">
-            <i class="fab fa-facebook-f"></i>
+          <button type="button" className="btn btn-link btn-floating mx-1">
+            <i className="fab fa-facebook-f"></i>
           </button>
 
-          <button type="button" class="btn btn-link btn-floating mx-1">
-            <i class="fab fa-google"></i>
+          <button type="button" className="btn btn-link btn-floating mx-1">
+            <i className="fab fa-google"></i>
           </button>
 
-          <button type="button" class="btn btn-link btn-floating mx-1">
-            <i class="fab fa-twitter"></i>
+          <button type="button" className="btn btn-link btn-floating mx-1">
+            <i className="fab fa-twitter"></i>
           </button>
 
-          <button type="button" class="btn btn-link btn-floating mx-1">
-            <i class="fab fa-github"></i>
+          <button type="button" className="btn btn-link btn-floating mx-1">
+            <i className="fab fa-github"></i>
           </button>
         </div>
       </form>

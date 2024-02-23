@@ -1,10 +1,14 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function SignIn() {
+  const navigate = useNavigate();
+
   const formStyle = {
     border: "1px solid #ced4da",
     padding: "30px",
-    borderRadius: "7px",
+    borderRadius: "7px"
   };
 
   const [formData, setFormData] = useState({
@@ -19,28 +23,31 @@ function SignIn() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
-      const response = await fetch("https://localhost:5000/signin", {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(formData),
+      const response = await axios.post("http://localhost:5000/api/signin", formData, {
+        headers: { "Content-Type": "application/json" },
       });
-
-      if (response.ok) {
-        const result = await response.json();
-        console.log("Login successful:", result);
+  
+      if (response.data.success) {
+        console.log("Sign-in Successful", response.data);
+  
+        // Reset the form data
+        setFormData({
+          email: "",
+          password: "",
+        });
+  
+        navigate("/problem");
       } else {
-        const errorData = await response.json();
-        console.log("Login Failed:", errorData.message);
+        console.error("Sign-in Failed", response.data.message);
       }
     } catch (error) {
-      console.error("Error during login:", error.message);
+      console.error("Error during sign-in:", error.message);
+      alert("Invalid email or password");
     }
-    console.log("Form Data Submitted:", formData);
   };
+  
 
   return (
     <div className="container-fluid">
