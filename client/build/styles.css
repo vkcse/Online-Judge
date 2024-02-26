@@ -1,0 +1,49 @@
+* {
+    font-family: "Montserrat", sans-serif;
+  }
+  
+  .navbar-brand {
+    font-weight: bolder;
+    font-size: 25px;
+    margin-left: 40px;
+  }
+  
+  #navbarNav {
+      margin-right: 40px;
+  }
+  
+  .homepage-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 95vh;
+  }
+  
+  .home-heading {
+      font-weight: bolder;
+  }
+  
+  .home-paragraph {
+      margin: 0 35px;
+      font-size: 22px;
+      font-weight: bold;
+      text-align: center;
+  }
+  
+  footer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+  }
+  
+  .signin-form {
+    margin-top: 150px;
+    width: 450px;
+  }
+
+  .register-form {
+    margin-top: 100px;
+    width: 450px;
+  }
