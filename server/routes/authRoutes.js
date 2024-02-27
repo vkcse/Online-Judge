@@ -15,7 +15,7 @@ const router = express.Router();
 // CORS middleware
 router.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: 'http://localhost:3000',
     credentials: true,
   })
 );
